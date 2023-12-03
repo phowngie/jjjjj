@@ -8,10 +8,9 @@
   <style>
     body {
       background-color: black;
-      display: none; /* Initially hide the body */
+      display: none;
     }
 
-    /* Additional styles for the lightbox */
     #lightbox {
       display: block;
       position: fixed;
@@ -54,7 +53,6 @@
 
 <body>
 
-  <!-- Lightbox HTML for Hello, World! -->
   <div id="lightbox">
     <div id="content">
       <p>Hello, World!</p>
@@ -98,15 +96,38 @@
 
     intervalId = setInterval(toggleImages, intervalSpeed);
 
-    // Lightbox display for Hello, World! and Progress Bar for 7 seconds
     window.onload = function() {
       var lightbox = document.getElementById('lightbox');
-      lightbox.style.display = 'flex'; // Show the lightbox
+      var body = document.body;
+
+      // Retrieve the visibility state from local storage
+      var isLightboxVisible = localStorage.getItem('isLightboxVisible');
+
+      if (isLightboxVisible === 'true') {
+        lightbox.style.display = 'flex';
+        body.style.display = 'none';
+      } else {
+        lightbox.style.display = 'none';
+        body.style.display = 'block';
+      }
 
       setTimeout(function() {
-        lightbox.style.display = 'none'; // Hide the lightbox after 7 seconds
-        document.body.style.display = 'block'; // Show the body content after the lightbox disappears
+        lightbox.style.display = 'none';
+        body.style.display = 'block';
+        localStorage.setItem('isLightboxVisible', 'false');
       }, 7000);
+    };
+
+    // Store the visibility state in local storage when leaving the page
+    window.onbeforeunload = function() {
+      var lightbox = document.getElementById('lightbox');
+      var body = document.body;
+
+      if (lightbox.style.display === 'flex') {
+        localStorage.setItem('isLightboxVisible', 'true');
+      } else {
+        localStorage.setItem('isLightboxVisible', 'false');
+      }
     };
   </script>
 
