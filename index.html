@@ -49,8 +49,8 @@
       width: 100%;
     }
 
-    #lightbox {
-      display: block;
+    /* Styling for the black overlay */
+    #overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -58,8 +58,16 @@
       height: 100%;
       background: black;
       z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       display: none;
+    }
+
+    #overlay p {
+      color: white;
+      font-size: 24px;
     }
 
     #lightbox p {
@@ -98,7 +106,7 @@
   </style>
 </head>
 
-<body>
+<body onload="displayOverlay()">
 
   <div id="content-container">
     <div id="image-container">
@@ -121,12 +129,9 @@
     </div>
   </div>
 
-  <!-- Lightbox HTML for Hello, World! and Progress Bar -->
-  <div id="lightbox">
+  <!-- Black overlay with Hello, World! text -->
+  <div id="overlay">
     <p>Hello, World!</p>
-    <div id="progressBar">
-      <div id="progress"></div>
-    </div>
   </div>
 
   <script>
@@ -150,17 +155,15 @@
 
     intervalId = setInterval(toggleImages, intervalSpeed);
 
-    // Lightbox display for Hello, World! and Progress Bar for 7 seconds
-    window.onload = function() {
-      var lightbox = document.getElementById('lightbox');
-      lightbox.style.display = 'block';
+    function displayOverlay() {
+      var overlay = document.getElementById('overlay');
+      overlay.style.display = 'flex';
 
       setTimeout(function() {
-        lightbox.style.display = 'none';
+        overlay.style.display = 'none';
       }, 7000);
-    };
+    }
   </script>
-
 </body>
 
 </html>
